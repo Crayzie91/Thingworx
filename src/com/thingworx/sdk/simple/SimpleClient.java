@@ -19,7 +19,7 @@ public class SimpleClient extends ConnectedThingClient {
 
 	private static final Logger LOG = LoggerFactory.getLogger(SimpleClient.class);
 	
-	private static String ThingName = "ExampleThing_1";
+	private static String ThingName = "DeliveryTruck_1";
 
 	public SimpleClient(ClientConfigurator config) throws Exception {
 		super(config);
@@ -56,7 +56,7 @@ public class SimpleClient extends ConnectedThingClient {
 				LOG.info("The client is now connected.");
 				
 				// We may now interact with the ThingWorx Server
-				InfoTable result;
+				InfoTable result,test;
 				
 				//
 				// Reading a property of a Thing
@@ -65,12 +65,14 @@ public class SimpleClient extends ConnectedThingClient {
 				// Request a property from a Thing on the Platform. Here we access the 'name'
 				// property of a Thing.
 				result = client.readProperty(ThingworxEntityTypes.Things, ThingName, "name", 10000);
+				test = client.readProperty(ThingworxEntityTypes.Things, ThingName, "Driver",10000);
 				
 				// Result is returned as an InfoTable, so we must extract the value. An InfoTable
 				// is a collection of one or more rows. A row can have multiple fields. Each 
 				// field has a name and a base type. In this case, the field name is 'name' and
 				// the base type is STRING, so we can use the getStringValue() helper.
 				String name = result.getFirstRow().getStringValue("name");
+				String driver = test.getFirstRow().getStringValue("Driver");
 				
 				LOG.info("The name of the Thing {} is: {}", ThingName, name);
 				
@@ -83,13 +85,14 @@ public class SimpleClient extends ConnectedThingClient {
 				// Writing a property
 				///////////////////////////////////////////////////////////////
 				
-				LocationPrimitive location = new LocationPrimitive(42.36, -71.06, 10.0);
+				NumberPrimitive number = new NumberPrimitive(42.36);
+				StringPrimitive driverwrite = new StringPrimitive("KevinTest");
 				
 				// This will set the CurrentLocation property of the Thing to the GPS 
 				// coordinates of Boston, MA.
-				client.writeProperty(ThingworxEntityTypes.Things, ThingName, "CurrentLocation", location, 5000);
+				client.writeProperty(ThingworxEntityTypes.Things, ThingName, "Driver", driverwrite, 5000);
 				
-				LOG.info("Wrote to the property 'CurrentLocation' of Thing {}. value: {}", ThingName, location.toString());
+				LOG.info("Wrote to the property 'Speed' of Thing {}. value: {}", ThingName, number.toString());//XXX
 				
 				//
 				// Invoking a service on a Thing
