@@ -1,4 +1,6 @@
 package com.thingworx.sdk.delivery;
+import java.util.Collection;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -6,6 +8,15 @@ import com.thingworx.communications.client.ClientConfigurator;
 import com.thingworx.communications.client.ConnectedThingClient;
 import com.thingworx.communications.client.things.VirtualThing;
 import com.thingworx.communications.common.SecurityClaims;
+import com.thingworx.relationships.RelationshipTypes.ThingworxEntityTypes;
+import com.thingworx.types.primitives.IntegerPrimitive;
+import com.thingworx.types.primitives.BooleanPrimitive;
+import com.thingworx.types.primitives.DatetimePrimitive;
+import com.thingworx.types.primitives.IPrimitiveType;
+import com.thingworx.types.primitives.LocationPrimitive;
+import com.thingworx.types.primitives.NumberPrimitive;
+import com.thingworx.types.primitives.StringPrimitive;
+import com.thingworx.types.properties.Property;
 
 //Refer to the "Delivery Truck Example" section of the documentation
 //for a detailed explanation of this example's operation 
@@ -55,11 +66,20 @@ public class DeliveryTruckClient extends ConnectedThingClient {
 		client.bindThing(truckThing1);
 		client.bindThing(truckThing2);
 		client.bindThing(truckThing3);
-
+		
 		try {
 			// Start the client. The client will connect to the server and 
 	        // authenticate, using the Application Key specified above.
 	        client.start();
+	        
+	        //XXX
+			String test=client.getThing("DeliveryTruck_1").getName(); 
+			client.writeProperty(ThingworxEntityTypes.Things, test, "Driver", new StringPrimitive("KevinTest"), 5000);
+			client.writeProperty(ThingworxEntityTypes.Things, test, "Speed", new NumberPrimitive(99), 5000);
+			
+//			Double test2=truckThing1.getSpeed(); 
+//			truckThing1.setProperty("Speed", new NumberPrimitive(100));
+//			Double test3=truckThing1.getSpeed();
 
 	        LOG.info("The client is now connected.");
 
@@ -71,6 +91,7 @@ public class DeliveryTruckClient extends ConnectedThingClient {
 					for(VirtualThing thing : client.getThings().values()) {
 						try {
 							thing.processScanRequest();
+							thing.setPropertyValue("Speed", new IntegerPrimitive(10));
 						}
 						catch(Exception eProcessing) {
 							System.out.println("Error Processing Scan Request for [" + thing.getName() + "] : " + eProcessing.getMessage());

@@ -50,14 +50,15 @@ import com.thingworx.types.primitives.IntegerPrimitive;
 	// request the values current value from the application.
 	@ThingworxPropertyDefinition(name="SetPoint",       
 							     description="The desired temperature",
-							     baseType="NUMBER",
-							     aspects={"dataChangeType:NEVER",
-							              "dataChangeThreshold:0",
-							              "cacheTime:-1", 
-							              "isPersistent:TRUE", 
-							              "isReadOnly:FALSE", 
-							              "pushType:NEVER", 
-							              "defaultValue:70"})
+							     baseType="NUMBER"//,
+//							     aspects={"dataChangeType:NEVER",
+//							              "dataChangeThreshold:0",
+//							              "cacheTime:-1", 
+//							              "isPersistent:TRUE", 
+//							              "isReadOnly:FALSE", 
+//							              "pushType:VALUE", 
+//							              "defaultValue:70"}
+							     )
 })
 
 /**
@@ -84,7 +85,7 @@ public class SimpleThing extends VirtualThing {
 		this.initializeFromAnnotations();
 		
 		try {
-			this.setPropertyValue("SetPoint", new IntegerPrimitive(70));
+			this.setPropertyValue("SetPoint", new IntegerPrimitive(100));
 		} catch (Exception e) {
 			LOG.warn("Could not ser default value for SetPoint");
 		}
@@ -112,6 +113,7 @@ public class SimpleThing extends VirtualThing {
 			// sets the new property value in memory.
 			this.setPropertyValue("Temperature", new IntegerPrimitive(temperature));
 			this.setPropertyValue("Humidity", new IntegerPrimitive(humidity));
+			this.setPropertyValue("SetPoint", new IntegerPrimitive(100));
 			
 			// This call evaluates all properties and determines if they should be pushed
 			// to the server, based on their pushType aspect. A pushType of ALWAYS means the

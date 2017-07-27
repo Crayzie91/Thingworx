@@ -70,6 +70,7 @@ public class DeliveryTruckThing extends VirtualThing implements Runnable {
 
 	public DeliveryTruckThing(String name, String description, ConnectedThingClient client) {
 		super(name, description, client);
+
 		thingName = name;
 		// Populate the thing shape with the properties, services, and events that are annotated in this code
 		super.initializeFromAnnotations();
@@ -90,6 +91,7 @@ public class DeliveryTruckThing extends VirtualThing implements Runnable {
 	private void init() {
 		// Data Shape definition that is used by the delivery stop event
 		// The event only has one field, the message
+		// URL: https://developer.thingworx.com/resources/guides/thingworx-java-sdk-tutorial/delivery-truck-model-simplething-usage
         FieldDefinitionCollection fields = new FieldDefinitionCollection();
         fields.addFieldDefinition(new FieldDefinition(ACTIV_TIME_FIELD, BaseTypes.DATETIME));
         fields.addFieldDefinition(new FieldDefinition(DRIVER_NAME_FIELD, BaseTypes.STRING));
@@ -201,6 +203,7 @@ public class DeliveryTruckThing extends VirtualThing implements Runnable {
 			setDeliveriesLeft();
 
 			// Set the event information of the defined data shape for a truck stop event
+			//URL:https://developer.thingworx.com/resources/guides/thingworx-java-sdk-tutorial/services-and-events
 			ValueCollection payload = new ValueCollection();
 
 			// Set values to the fields
@@ -263,6 +266,7 @@ public class DeliveryTruckThing extends VirtualThing implements Runnable {
 
 	@ThingworxServiceDefinition(name="GetTruckReadings", description="Get Truck Readings")
 	@ThingworxServiceResult(name=CommonPropertyNames.PROP_RESULT, description="Result", baseType="INFOTABLE", aspects={"dataShape:DeliveryTruckShape"})
+	// URL:https://developer.thingworx.com/resources/guides/thingworx-java-sdk-tutorial/delivery-truck-model-simplething-usage
 	public InfoTable GetTruckReadings(String truck, String driver) {		
 		InfoTable result = new InfoTable(getDataShapeDefinition("DeliveryTruckShape"));
 		ValueCollection entry = new ValueCollection();

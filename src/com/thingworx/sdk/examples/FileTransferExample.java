@@ -14,7 +14,7 @@ public class FileTransferExample {
 		ClientConfigurator config = new ClientConfigurator();
 
 		// Basic configuration. See ExampleClient.java for additional info.
-		config.setUri("ws://127.0.0.1:80/Thingworx/WS");		
+		config.setUri("http://34.227.165.169:80/Thingworx/WS");		
 		config.setAppKey("ce22e9e4-2834-419c-9656-ef9f844c784c");		
 		config.ignoreSSLErrors(true);
 
@@ -42,8 +42,8 @@ public class FileTransferExample {
 
 			// Wait for the client to connect.
 			if (client.waitForConnection(30000)) {
-				client.invokeService(ThingworxEntityTypes.Things, "SystemRepository", "CreateFolder", FileTransferExampleHelper.createSystemRepositoryIncomingPath(), 15000);
-				client.invokeService(ThingworxEntityTypes.Things, "SystemRepository", "CreateTextFile", FileTransferExampleHelper.createSystemRepositoryOutgoingPath(), 15000);
+				//client.invokeService(ThingworxEntityTypes.Things, "SystemRepository", "CreateFolder", FileTransferExampleHelper.createSystemRepositoryIncomingPath(), 15000);
+				//client.invokeService(ThingworxEntityTypes.Things, "SystemRepository", "CreateTextFile", FileTransferExampleHelper.createSystemRepositoryOutgoingPath(), 15000);
 				client.invokeService(ThingworxEntityTypes.Subsystems, "FileTransferSubsystem", "Copy", FileTransferExampleHelper.createTransferIncomingParameters(ThingName), 15000);
 				client.invokeService(ThingworxEntityTypes.Subsystems, "FileTransferSubsystem", "Copy", FileTransferExampleHelper.createTransferOutgoingParameters(ThingName), 15000);
 			} else {

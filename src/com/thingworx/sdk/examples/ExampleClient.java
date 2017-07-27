@@ -24,12 +24,12 @@ public class ExampleClient extends ConnectedThingClient {
 		// Set the URI of the server that we are going to connect to.
 		// The port is based on configurations set during tomcat setup.
 		// Port 80 is the default.
-		config.setUri("ws://127.0.0.1:80/Thingworx/WS");
+		config.setUri("http://34.227.165.169:80/Thingworx/WS");		
 
 		// Set the Application Key. This will allow the client to authenticate with the server.
 		// It will also dictate what the client is authorized to do once connected.
 		// This application key should match that of imported default_user User.
-		config.setAppKey("b3d06be7-c9e1-4a9c-b967-28cd4c49fa80");
+		config.setAppKey("ce22e9e4-2834-419c-9656-ef9f844c784c");
 
 		// This will allow us to test against a server using a self-signed certificate.
 		// This should be removed for production systems.
