@@ -14,7 +14,7 @@ public class DeliveryTruckClient extends ConnectedThingClient {
 	private static final Logger LOG = LoggerFactory.getLogger(DeliveryTruckClient.class);
 
 	public DeliveryTruckClient(ClientConfigurator config) throws Exception {
-		super(config);//Test
+		super(config);
 	}
 
 	// Test example
